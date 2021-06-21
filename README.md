@@ -56,3 +56,19 @@ If you want to learn more about building native executables, please consult http
 REST is easy peasy with this Hello World RESTEasy resource.
 
 [Related guide section...](https://quarkus.io/guides/getting-started#the-jax-rs-resources)
+
+
+## Links JAX RS
+
+### Accept Media 
+curl -H "Accept: text/plain" http://localhost:8080/hello
+
+curl -H "Accept: text/html" http://localhost:8080/hello
+
+curl -H "Accept: application/xml" http://localhost:8080/hello
+
+curl -H "Accept: application/json" http://localhost:8080/hello
+
+
+
+
