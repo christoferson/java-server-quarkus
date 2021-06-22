@@ -1,7 +1,12 @@
 package org.demo.controller;
 
+import java.util.List;
+
 import javax.inject.Inject;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -18,11 +23,8 @@ public class CompanyResource {
 	
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Company company() {
-    	Company company = new Company();
-    	company.setName("Acme");
-    	company.setIndustry("Finance");
-        return company;
+    public List<Company> list() {
+    	return companyService.listCompany();
     }
     
     @GET
@@ -31,5 +33,20 @@ public class CompanyResource {
     public Company get(@PathParam("id") String id) {
     	return companyService.getCompany(id);
     }
-  
+
+    @PUT
+    @Path("/{id}")
+    @Consumes("application/json")
+    @Produces("application/json")
+    public Company edit(@PathParam("id") String id, Company company) {
+    	return companyService.editCompany(id, company);
+    }
+    
+    @DELETE
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Company delete(@PathParam("id") String id) {
+    	return companyService.deleteCompany(id);
+    }
+
 }
