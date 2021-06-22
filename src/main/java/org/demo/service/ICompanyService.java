@@ -12,6 +12,8 @@ public interface ICompanyService {
 	
 	Company editCompany(String id, Company data);
 	
+	Company registerCompany(Company data);
+	
 	Company deleteCompany(String id);
 	
 }

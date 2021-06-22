@@ -55,6 +55,20 @@ public class CompanyService implements ICompanyService {
 	}
 	
 	@Override
+	public Company registerCompany(Company data) {
+		String id = data.getId();
+		if (entries.containsKey(id)) {
+			throw new ApplicationException();
+		}
+		Company company = new Company();
+		company.setId(data.getId());
+		company.setName(data.getName());
+		company.setIndustry(data.getIndustry());
+		entries.put(id, company);
+		return company;
+	}
+	
+	@Override
 	public Company deleteCompany(String id) {
 		if (!entries.containsKey(id)) {
 			throw new ApplicationException();

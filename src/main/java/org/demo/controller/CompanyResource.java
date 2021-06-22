@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -15,10 +16,10 @@ import javax.ws.rs.core.MediaType;
 import org.demo.model.Company;
 import org.demo.service.ICompanyService;
 
-@Path("/company")
+@Path("/company") 
 public class CompanyResource {
 
-	@Inject
+    @Inject    
 	private ICompanyService companyService;
 	
     @GET
@@ -40,6 +41,14 @@ public class CompanyResource {
     @Produces("application/json")
     public Company edit(@PathParam("id") String id, Company company) {
     	return companyService.editCompany(id, company);
+    }
+    
+    @POST
+    //@Path("/{id}")
+    @Consumes("application/json")
+    @Produces("application/json")
+    public Company register(Company company) {
+    	return companyService.registerCompany(company);
     }
     
     @DELETE
