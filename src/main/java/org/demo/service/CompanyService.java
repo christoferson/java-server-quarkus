@@ -1,9 +1,9 @@
 package org.demo.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
@@ -14,7 +14,7 @@ import org.demo.model.Company;
 @ApplicationScoped
 public class CompanyService implements ICompanyService {
 
-	private Map<String, Company> entries = new HashMap<>();
+	private Map<String, Company> entries = new ConcurrentHashMap<>();
 	
 	@PostConstruct
 	void init() {
