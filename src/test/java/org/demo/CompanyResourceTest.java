@@ -1,9 +1,15 @@
 package org.demo;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.Matchers.*;
+
+import java.util.List;
 
 import org.demo.model.Company;
 import org.junit.jupiter.api.Order;
@@ -11,6 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 
 @QuarkusTest
 public class CompanyResourceTest {
@@ -31,7 +38,26 @@ public class CompanyResourceTest {
     	assertThat(company.getId(), equalTo("1"));
     	 
     }
-
+    
+    @Test @Order(2)
+    public void testListCompany() {
+    	
+    	Response result =
+        given()
+          .contentType(ContentType.JSON)
+          .when().accept(ContentType.JSON).get("/company")
+          .then()
+             .statusCode(200)
+             .body(containsString("Acme 1"), containsString("Acme 2"))
+             .extract()
+             .response();
+    	
+    	List<Company> list = result.jsonPath().getList("$"); 
+    	
+    	assertThat(list, notNullValue()); 
+    	assertThat(list, not(empty()));
+    	assertThat(list, hasSize(9));
+    }
 
     @Test @Order(3)
     public void testRegisterCompany() {
