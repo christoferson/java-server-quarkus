@@ -15,6 +15,16 @@ public class GreetingResource {
 	@ConfigProperty(name="greeting.text") 
 	private String greetingText;
 	
+    @Inject
+    private ApplicationConfig applicationConfig;
+    
+    @GET
+    @Path("version")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String version() {
+        return String.format("{\"version\":\"%s\"}", applicationConfig.getVersion());
+    }
+    
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String hello() {

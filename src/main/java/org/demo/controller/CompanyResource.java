@@ -24,9 +24,9 @@ public class CompanyResource {
 
 	private static final Logger LOG = Logger.getLogger(CompanyResource.class);
 	
-    @Inject    
+    @Inject
 	private ICompanyService companyService;
-	
+    
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Company> list(
@@ -52,7 +52,6 @@ public class CompanyResource {
     }
     
     @POST
-    //@Path("/{id}")
     @Consumes("application/json")
     @Produces("application/json")
     public Company register(Company company) {
