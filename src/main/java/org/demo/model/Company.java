@@ -34,7 +34,7 @@ public class Company {
 
 	@Override
 	public String toString() {
-		return "Company [name=" + name + "]";
+		return "Company [id=" + id + ", name=" + name + ", industry=" + industry + "]";
 	}
 
 }

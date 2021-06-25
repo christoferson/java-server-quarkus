@@ -57,6 +57,7 @@ public class CompanyResource {
     @Produces("application/json")
     public Company register(Company company) {
     	return companyService.registerCompany(company);
+    	//return Response.status(201).entity(account).build(); 
     }
     
     @DELETE

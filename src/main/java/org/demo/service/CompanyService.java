@@ -7,20 +7,25 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 
 import org.demo.ApplicationException;
 import org.demo.model.Company;
+import org.demo.repository.KeyGenerator;
 
 @ApplicationScoped
 public class CompanyService implements ICompanyService {
-
+	
+	@Inject
+	private KeyGenerator keyGenerator;
+	
 	private Map<String, Company> entries = new ConcurrentHashMap<>();
 	
 	@PostConstruct
 	void init() {
 		
 		for (int i = 1; i < 10; i++) {
-			String id = String.valueOf(i);
+			String id = String.valueOf(keyGenerator.generateCompanyKey());
 			Company company = new Company();
 			company.setId(id);
 	    	company.setName("Acme " + id);
@@ -56,12 +61,12 @@ public class CompanyService implements ICompanyService {
 	
 	@Override
 	public Company registerCompany(Company data) {
-		String id = data.getId();
-		if (entries.containsKey(id)) {
+		if (data.getId() != null) {
 			throw new ApplicationException();
 		}
+		String id = keyGenerator.generateCompanyKey();
 		Company company = new Company();
-		company.setId(data.getId());
+		company.setId(id);
 		company.setName(data.getName());
 		company.setIndustry(data.getIndustry());
 		entries.put(id, company);
