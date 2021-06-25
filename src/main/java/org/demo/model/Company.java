@@ -6,7 +6,7 @@ public class Company {
 
 	private String name;
 	
-	private String industry = "Finance";
+	private String industry;
 	
 	public String getId() {
 		return id;
